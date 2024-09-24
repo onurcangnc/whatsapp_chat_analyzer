@@ -1,7 +1,4 @@
-altgraph @ file:///System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot8/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/python3/python3-121/altgraph-0.17.2-py2.py3-none-any.whl
 colorama==0.4.6
-future @ file:///System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot8/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/python3/python3-121/future-0.18.2-py3-none-any.whl
-macholib @ file:///System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot8/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/python3/python3-121/macholib-1.15.2-py2.py3-none-any.whl
 numpy==1.26.4
 pandas==2.2.2
 prompt-toolkit==3.0.43
@@ -11,6 +8,5 @@ pygame==2.5.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2024.1
-six @ file:///System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot8/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/python3/python3-121/six-1.15.0-py2.py3-none-any.whl
 tzdata==2024.1
 wcwidth==0.2.13
