@@ -13,9 +13,8 @@ app = Flask(__name__)
 # Get the secret key from environment variable FLASK_SECRET_KEY or use a fallback key
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'fallback_secret_key')
 
-# Updated WhatsApp parsing function
 def parse_whatsapp_chat(file):
-    message_pattern = r'\[(\d{2}\.\d{2}\.\d{4}), (\d{2}:\d{2}:\d{2})\] ([^:]+): (.*)'
+    message_pattern = r'\[(\d{1,2})\.(\d{1,2})\.(\d{4}),? (\d{2}:\d{2}:\d{2})\] ([^:]+): (.*)'
     chat_data = []
     current_message = None
 
@@ -27,12 +26,14 @@ def parse_whatsapp_chat(file):
 
         match = re.match(message_pattern, line)
         if match:
-            date_str = match.group(1)
-            time_str = match.group(2)
-            sender = match.group(3)
-            message = match.group(4)
+            day = match.group(1)
+            month = match.group(2)
+            year = match.group(3)
+            time_str = match.group(4)
+            sender = match.group(5)
+            message = match.group(6)
 
-            date_time_str = f'{date_str} {time_str}'
+            date_time_str = f'{day}.{month}.{year} {time_str}'
             try:
                 date_time_obj = datetime.strptime(date_time_str, '%d.%m.%Y %H:%M:%S')
             except ValueError as ve:
