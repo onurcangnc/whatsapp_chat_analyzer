@@ -37,5 +37,5 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       run: |
-        heroku git:remote -a $HEROKU_APP_NAME
+        heroku git:remote --app $HEROKU_APP_NAME
         git push heroku main
