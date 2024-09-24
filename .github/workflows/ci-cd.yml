@@ -3,7 +3,7 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - main  # Triggers deploy on push to the 'main' branch (change if necessary)
+      - main  # or the branch you want to trigger the deployment
 
 jobs:
   deploy:
@@ -18,7 +18,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # Adjust Python version if necessary
+        python-version: '3.x'  # Adjust the Python version if necessary
 
     # Step 3: Install dependencies
     - name: Install dependencies
@@ -31,11 +31,17 @@ jobs:
       run: |
         curl https://cli-assets.heroku.com/install.sh | sh
 
-    # Step 5: Deploy to Heroku
+    # Step 5: Authenticate with Heroku and Deploy
     - name: Deploy to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       run: |
-        heroku git:remote --app $HEROKU_APP_NAME
+        # Authenticate with Heroku using API key
+        heroku auth:token | heroku git:remote --app $HEROKU_APP_NAME
+        
+        # Set the git remote using the API key
+        git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
+        
+        # Push the code to Heroku
         git push heroku main
