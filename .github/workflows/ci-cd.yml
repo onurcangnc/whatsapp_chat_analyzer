@@ -10,18 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the repository from GitHub
+    # Step 1: Checkout the repository
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Step 2: Set up Python environment (if needed)
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+    # Step 2: Set Git user identity (fixes the error)
+    - name: Set up Git user
+      run: |
+        git config --global user.email "rekal1417@gmail.com"
+        git config --global user.name "onurcangnc"
 
-    # Step 3: Pull remote changes from Heroku before pushing
-    - name: Pull from Heroku remote
+    # Step 3: Set Heroku remote and deploy
+    - name: Deploy to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
@@ -30,13 +30,13 @@ jobs:
         if ! git remote | grep heroku; then
           git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git;
         fi
-        
+
         # Pull latest changes from Heroku to avoid conflicts
         git fetch heroku
         git merge heroku/main --allow-unrelated-histories
 
     # Step 4: Push to Heroku
-    - name: Deploy to Heroku
+    - name: Push to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
