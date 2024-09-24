@@ -3,39 +3,42 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to main branch
+      - main  # Deploy on push to main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the code from GitHub
+    # Step 1: Checkout the repository from GitHub
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Step 2: Set up Python environment
+    # Step 2: Set up Python environment (if needed)
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # Specify the Python version
+        python-version: '3.x'
 
-    # Step 3: Install dependencies from requirements.txt
-    - name: Install dependencies
+    # Step 3: Pull remote changes from Heroku before pushing
+    - name: Pull from Heroku remote
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        # Add the Heroku remote if it doesn't exist
+        if ! git remote | grep heroku; then
+          git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git;
+        fi
+        
+        # Pull latest changes from Heroku to avoid conflicts
+        git fetch heroku
+        git merge heroku/main --allow-unrelated-histories
 
-    # Step 4: Set Heroku remote and deploy
+    # Step 4: Push to Heroku
     - name: Deploy to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       run: |
-        # Check if the Heroku remote exists, if not, add it
-        if ! git remote | grep heroku; then
-          git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git;
-        fi
-
-        # Push code to Heroku
         git push heroku main
