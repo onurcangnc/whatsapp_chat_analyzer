@@ -2,6 +2,8 @@
 
 WhatsApp Chat Analyzer is a Flask-based web application that processes exported WhatsApp chat files, analyzes them, and generates insightful metrics. It supports conversion of chat files into structured formats (CSV, Excel) and provides data visualizations such as pie charts for message distribution and average reply times.
 
+[Watch My YouTube Video](https://www.youtube.com/watch?v=XHe_vNL7i_E)
+
 ## Features
 
 - **WhatsApp Chat Parsing**: Automatically parses WhatsApp chat exports, detecting messages, senders, and timestamps.
