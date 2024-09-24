@@ -15,4 +15,4 @@ six==1.15.0
 tzdata==2024.1
 wcwidth==0.2.13
 gunicorn==23.0.0
-
+flask==2.1.1
