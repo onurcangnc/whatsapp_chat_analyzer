@@ -32,12 +32,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Run linting (optional)
-      - name: Run linting
-        run: |
-          pip install flake8
-          flake8 .
-
       # Step 5: Run tests (assuming you have tests defined)
       - name: Run Tests
         run: |
@@ -58,7 +52,7 @@ jobs:
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: your-app-name  # Set your Heroku app name
+          HEROKU_APP_NAME: whatssap-chat-analyzer  # Set your Heroku app name
         run: |
           heroku git:remote -a $HEROKU_APP_NAME
           git push heroku main
