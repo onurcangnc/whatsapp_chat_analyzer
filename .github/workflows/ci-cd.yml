@@ -43,14 +43,17 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
-      - name: Set up Heroku remote and pull changes
+      - name: Set up Heroku remote and fetch changes
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: whatssap-chat-analyzer  # Set your Heroku app name
         run: |
           git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
           git fetch heroku
-          git merge heroku/main --allow-unrelated-histories
+
+      - name: Force merge using Heroku's version
+        run: |
+          git merge -X theirs heroku/main --allow-unrelated-histories || true
 
       - name: Push to Heroku
         run: |
