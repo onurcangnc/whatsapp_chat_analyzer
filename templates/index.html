@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Chat Upload (.txt only)</title>
+
+    <!-- FontAwesome for icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Link to custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- jQuery and JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <!-- Bootstrap for styling -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container center">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="white">Custom File Upload</h1>
+                <p class="white">Only .txt files allowed! The file must be a WhatsApp chat export (.txt).</p>
+            </div>
+        </div>
+
+        <!-- Flash messages to show success or error -->
+        <div class="row">
+            <div class="col-md-12">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <ul>
+                            {% for category, message in messages %}
+                                <li class="alert alert-{{ category }}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+
+        <!-- Form to upload file -->
+        <form name="upload" method="POST" action="/" enctype="multipart/form-data" accept-charset="utf-8">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 center">
+                    <div class="btn-container">
+                        <h1 class="imgupload"><i class="fa fa-file-text-o"></i></h1>
+                        <h1 class="imgupload ok" style="display:none;"><i class="fa fa-check"></i></h1>
+                        <h1 class="imgupload stop" style="display:none;"><i class="fa fa-times"></i></h1>
+                        <p id="namefile">Only .txt files allowed!</p>
+
+                        <!-- Hidden File Upload Trigger -->
+                        <button type="button" id="btnup" class="btn btn-primary btn-lg">Browse for your file!</button>
+                        <input type="file" name="fileup" id="fileup" accept=".txt" style="display:none;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit button area -->
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" value="Submit!" class="btn btn-primary" id="submitbtn" style="display:none;">
+                    <button type="button" class="btn btn-default" disabled="disabled" id="fakebtn">Submit! <i class="fa fa-minus-circle"></i></button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Section to download processed file if available -->
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{{ url_for('download') }}" class="btn btn-success" {% if not session.get('output_file') %}style="display:none;"{% endif %}>
+                    Download Processed CSV
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <a href="http://www.emilianocostanzo.com" target="_blank" id="sign">EMI</a>
+</body>
+</html>
