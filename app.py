@@ -10,7 +10,8 @@ from openpyxl.drawing.image import Image as ExcelImage
 from collections import defaultdict
 
 app = Flask(__name__)
-app.secret_key = "737571bcdb8a096e3562f662a183d1b9362c62cfc36d6f58"  # Replace with a secure key for session handling
+# Get the secret key from environment variable FLASK_SECRET_KEY or use a fallback key
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'fallback_secret_key')
 
 # Updated WhatsApp parsing function
 def parse_whatsapp_chat(file):
