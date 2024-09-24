@@ -1,4 +1,7 @@
+altgraph==0.17.2
 colorama==0.4.6
+future==0.18.2
+macholib==1.15.2
 numpy==1.26.4
 pandas==2.2.2
 prompt-toolkit==3.0.43
@@ -8,5 +11,6 @@ pygame==2.5.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2024.1
+six==1.15.0
 tzdata==2024.1
 wcwidth==0.2.13
