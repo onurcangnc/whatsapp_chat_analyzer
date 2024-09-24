@@ -95,72 +95,20 @@ def index():
             with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
                 parsed_chat.to_excel(writer, sheet_name='Parsed Chat', index=False)
 
+                # Access the workbook and sheet
+                workbook = writer.book
+                worksheet = writer.sheets['Parsed Chat']
+
+                # Adjust column widths
+                worksheet.column_dimensions['A'].width = 15  # Date column
+                worksheet.column_dimensions['B'].width = 10  # Time column
+                worksheet.column_dimensions['C'].width = 25  # Datetime column
+                worksheet.column_dimensions['D'].width = 20  # Sender column
+                worksheet.column_dimensions['E'].width = 50  # Message column
+
                 # Summary of messages per sender
                 message_summary = parsed_chat['Sender'].value_counts().reset_index()
                 message_summary.columns = ['Sender', 'Total Messages']
                 message_summary.to_excel(writer, sheet_name='Message Summary', index=False)
 
-                # Average reply time sheet
-                avg_reply_df = pd.DataFrame(list(avg_reply_times.items()), columns=['Sender', 'Average Reply Time (mins)'])
-                avg_reply_df.to_excel(writer, sheet_name='Avg Reply Time', index=False)
-
-                # Generate pie charts for data analysis
-                plt.figure(figsize=(8, 6))
-                plt.pie(message_summary['Total Messages'], labels=message_summary['Sender'], autopct='%1.1f%%')
-                plt.title('Messages Sent by Each Sender')
-                msg_pie_image_path = tempfile.NamedTemporaryFile(delete=False, suffix='.png').name
-                plt.savefig(msg_pie_image_path)
-
-                plt.figure(figsize=(8, 6))
-                plt.pie(avg_reply_df['Average Reply Time (mins)'], labels=avg_reply_df['Sender'], autopct='%1.1f%%')
-                plt.title('Average Reply Time by Each Sender')
-                reply_pie_image_path = tempfile.NamedTemporaryFile(delete=False, suffix='.png').name
-                plt.savefig(reply_pie_image_path)
-
-                # Insert pie charts into the workbook
-                workbook = writer.book
-                worksheet_graphs = workbook.create_sheet('Pie Charts')
-                img_msg_pie = ExcelImage(msg_pie_image_path)
-                worksheet_graphs.add_image(img_msg_pie, 'A1')
-                img_reply_pie = ExcelImage(reply_pie_image_path)
-                worksheet_graphs.add_image(img_reply_pie, 'A20')
-
-            # Store the file path for download
-            session['output_file'] = output_path
-            session['file_downloaded'] = False  # Track download status
-
-            flash("File processed successfully.", "success")
-            return redirect(url_for('index'))
-
-    return render_template('index.html')
-
-@app.route('/download', methods=['GET'])
-def download():
-    output_file = session.get('output_file')
-    if not output_file or not os.path.exists(output_file):
-        flash("No file available to download.", "error")
-        return redirect(url_for('index'))
-
-    # Check if file has already been downloaded
-    if session.get('file_downloaded'):
-        flash("The file has already been downloaded.", "error")
-        return redirect(url_for('index'))
-
-    # Mark the file as downloaded
-    session['file_downloaded'] = True
-
-    # Delete the file after sending it to the user
-    @after_this_request
-    def remove_file(response):
-        try:
-            os.remove(output_file)
-            session.pop('output_file', None)  # Clear the file from the session
-        except Exception as e:
-            print(f"Error deleting file: {e}")
-        return response
-
-    return send_file(output_file, as_attachment=True, download_name="parsed_chat_with_reply_times.xlsx")
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+                # Adjust column
