@@ -1,162 +1,112 @@
 # WhatsApp Chat Analyzer
 
-WhatsApp Chat Analyzer is a Flask-based web application that processes exported WhatsApp chat files, analyzes them, and generates insightful metrics. It supports conversion of chat files into structured formats (CSV, Excel) and provides data visualizations such as pie charts for message distribution and average reply times.
+## Overview
 
-Live-web Application
-
-https://whatssap-chat-analyzer-aceff0b3611b.herokuapp.com/
-
-[Watch My YouTube Video](https://www.youtube.com/watch?v=XHe_vNL7i_E)
+The **WhatsApp Chat Analyzer** is a web-based application that allows users to upload WhatsApp chat logs in `.txt` format and analyze them. The application processes the chat data and generates insights such as average reply times, message counts, and more. Additionally, users can upload CSV or Excel files to further analyze the data and download a psychological report on the chat participants.
 
 ## Features
 
-- **WhatsApp Chat Parsing**: Automatically parses WhatsApp chat exports, detecting messages, senders, and timestamps.
-- **Data Export**: Outputs processed chat data as CSV and Excel files.
-- **Analytics**:
-  - Message count per sender
-  - Average reply time per sender
-- **Data Visualization**: Generates pie charts to visualize:
-  - Distribution of total messages per sender
-  - Average reply times per sender
+- Upload WhatsApp chat logs in `.txt` format for analysis.
+- Upload CSV/Excel files for advanced analysis.
+- Download processed chat data in CSV format.
+- Generate psychological reports from CSV/Excel data.
+- Responsive design and clean user interface using Bootstrap.
+- Includes validation for file types before uploading.
+  
+## Tech Stack
 
-
-## Technologies Used
-
-![introductory image](./static/intro.png)
-
-- **Flask**: Backend web framework
-- **Pandas**: Data processing and analysis
-- **Matplotlib**: Data visualization for generating charts
-- **OpenPyXL**: To create Excel files with charts embedded
-- **Heroku**: Deployment platform for the application
-
-
-## Prerequisites
-
-To run this project locally, you will need:
-
-- Python 3.9+
-- A virtual environment setup tool like `venv` or `virtualenv`
-- A WhatsApp chat export file (.txt format)
+- ![Flask](https://img.shields.io/badge/Flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) **Backend**: Flask (Python)
+- ![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black) ![jQuery](https://img.shields.io/badge/jQuery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white) ![Bootstrap](https://img.shields.io/badge/Bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) **Frontend**: HTML, CSS, JavaScript, jQuery, Bootstrap
+- ![Pandas](https://img.shields.io/badge/Pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) **Processing**: Pandas for CSV/Excel data manipulation
+- ![Gunicorn](https://img.shields.io/badge/Gunicorn-%298729.svg?style=for-the-badge&logo=gunicorn&logoColor=white) ![Heroku](https://img.shields.io/badge/Heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) **Deployment**: Gunicorn, Heroku
+- ![OpenAI](https://img.shields.io/badge/OpenAI-%231A1A1A.svg?style=for-the-badge&logo=openai&logoColor=white) **Other Tools**: OpenAI GPT-4 API for human psychology report generation
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
 
 ```bash
-    git clone https://github.com/onurcangnc/whatsapp_chat_analyzer.git
-    cd whatsapp_chat_analyzer
+git clone https://github.com/yourusername/whatsapp-chat-analyzer.git
+   cd whatsapp-chat-analyzer
 ```
 
-2. Set up a virtual environment:
+2. **Install dependencies:**
+
+- You can find all dependencies in ```requirements.txt```. Install them using pip:
 
 ```bash
-    python3 -m venv venv
-    source venv/bin/activate  # For Windows: venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
-3. Install the required packages:
+3. **Set up environment variables:**
+
+- Create a ```.env``` file in the project root and define the following variables:
 
 ```bash
-    pip install -r requirements.txt
+FLASK_SECRET_KEY=your_secret_key
+OPENAI_API_KEY=your_openai_api_key
 ```
 
-4. Create a .env file to set the Flask secret key:
-
-```bash
-    FLASK_SECRET_KEY=your_secret_key
-```
-
-```bash
-python -c 'import os; print(os.urandom(24).hex())'
-```
-
-5. Run the Flask application:
+4. **Run the app locally:**
 
 ```bash
 flask run
+The app will be available at http://127.0.0.1:5000/.
 ```
 
-6. Open your browser and visit:
+5. **Deploy on Heroku:**
+
+- Use the ```Procfile``` provided for deployment on Heroku.
 
 ```bash
-127.0.0.1:5000
+heroku create
+git push heroku master
 ```
-
-
----
 
 ## Usage
 
-### Uploading Chat Files
+1. Uploading a WhatsApp chat log:
 
-- Export the chat file from WhatsApp and upload the `.txt` file via the web interface.
-- The system will parse the chat and generate a downloadable CSV or Excel file containing the analysis.
+2. Browse and select a ```.txt``` file containing a WhatsApp chat export.
+Once uploaded, the chat log will be processed and analyzed.
+Download CSV:
 
-### Output Files
+3. After processing the chat log, you can download the analyzed data as a CSV file.
 
-- **CSV**: The processed chat data.
-- **Excel**: Processed data with embedded pie charts of message distribution and reply times.
+4. Generating Psychological Report:
 
-### Available Analytics
+- You can also upload CSV/Excel files to generate psychological reports about the chat participants.
 
-- **Total Messages per Sender**: Counts how many messages each person sent in the conversation.
-- **Average Reply Time**: Calculates the average time it takes each person to reply.
+## File Structure
 
+- ```app.py```: Contains the Flask server logic and routes.
 
-## Deployment
+- ```requirements.txt```: Lists the Python dependencies required for the project.
 
-The project is already set up for Heroku deployment. You can deploy it to Heroku with the following steps:
+- ```Procfile```: Configuration for deploying on Heroku.
 
-1. Create a Heroku account and install the Heroku CLI.
-2. Log in to Heroku:
+- ```static/```: Contains static files such as custom CSS (style.css) and 
+JavaScript (script.js).
 
-```bash
-   heroku login
-```
-
-3. Create a new Heroku app:
-
-```bash
-heroku create your-app-name
-```
-
-4. Push the code to Heroku:
-
-```bash
-    git push heroku main
-```
-
-5. Open the app:
-
-```bash
-heroku open
-```
-
-
----
-
-## CI/CD Pipeline
-
-- This project uses GitHub Actions for continuous integration and deployment to Heroku. The CI/CD pipeline will run automatically on each push to the `main` branch, deploying the app to Heroku.
+- ```templates/```: Contains HTML templates such as index.html.
+Contributing
 
 
 ## Contributing
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -m "Add new feature"`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a pull request.
+- Feel free to fork the project, open issues, and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
 
-## License
+Author: Onurcan Genç 
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+[Portfolio](https://onurcangenc.com.tr)
 
-## Contact
 
-For any inquiries or issues, please feel free to reach out.
 
-- **Email**: [onurcangencbilkent@gmail.com](mailto:onurcangencbilkent@gmail.com)
-- **GitHub**: [onurcangnc](https://github.com/onurcangnc)
+```bash
+This `README.md` covers the project overview, installation, usage, and deployment steps while including relevant details from the files you uploaded. Let me know if you'd like any changes!
+```
+
+
+
+
