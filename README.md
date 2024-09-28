@@ -17,7 +17,7 @@ The **WhatsApp Chat Analyzer** is a web-based application that allows users to u
 
 - **Backend**: Flask (Python) ![Flask](https://img.shields.io/badge/Flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 - **Frontend**: HTML, CSS, JavaScript, jQuery, Bootstrap ![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black) ![jQuery](https://img.shields.io/badge/jQuery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white) ![Bootstrap](https://img.shields.io/badge/Bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
-- **Processing**: Pandas for CSV/Excel data manipulation ! [Pandas](https://img.shields.io/badge/Pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) 
+- **Processing**: Pandas for CSV/Excel data manipulation ![Pandas](https://img.shields.io/badge/Pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) 
 - **Deployment**: Gunicorn, Heroku ![Gunicorn](https://img.shields.io/badge/Gunicorn-%298729.svg?style=for-the-badge&logo=gunicorn&logoColor=white) ![Heroku](https://img.shields.io/badge/Heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) 
 - **AI Integration**: OpenAI GPT-4 API for human psychology report generation ![OpenAI](https://img.shields.io/badge/OpenAI-%231A1A1A.svg?style=for-the-badge&logo=openai&logoColor=white) 
 
