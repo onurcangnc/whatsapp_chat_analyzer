@@ -1,87 +1,164 @@
-/*just bg and body style*/
-.container{
-    background-color:#1E2832;
-    padding-bottom:20px;
-    margin-top:10px;
-    border-radius:5px;
+/* General container and body styles */
+.container {
+    background-color: #1E2832;
+    padding-bottom: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
 }
-.center{
-    text-align:center;  
+
+.center {
+    text-align: center;
 }
-#top{
-    margin-top:20px;  
+
+#top {
+    margin-top: 20px;
 }
-.btn-container{
-    background:#fff;
-    border-radius:5px;
-    padding-bottom:20px;
-    margin-bottom:20px;
+
+/* Button container background and styling */
+.btn-container {
+    background: #fff;
+    border-radius: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
-.white{
-    color:white;
+
+.white {
+    color: white;
 }
-.imgupload{
-    color:#1E2832;
-    padding-top:40px;
-    font-size:7em;
+
+.imgupload {
+    color: #1E2832;
+    padding-top: 40px;
+    font-size: 7em;
 }
-#namefile{
-    color:black;
+
+#namefile {
+    color: black;
 }
-h4>strong{
-    color:#ff3f3f
+
+h4>strong {
+    color: #ff3f3f;
 }
-.btn-primary{
+
+/* Primary button (Submit Button) styling */
+.btn-primary {
     border-color: #ff3f3f !important;
     color: #ffffff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     background-color: #ff3f3f !important;
     border-color: #ff3f3f !important;
 }
 
-/*these two are set to not display at start*/
-.imgupload.ok{
-    display:none;
-    color:green;
-}
-.imgupload.stop{
-    display:none;
-    color:red;
+.btn-primary:hover {
+    background-color: #e63946 !important;
 }
 
-/*this sets the actual file input to overlay our button*/ 
-#fileup{
+/* Hidden upload triggers */
+#fileup, #file_csv {
     opacity: 0;
-    -moz-opacity: 0;
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-    width:200px;
-    cursor: pointer;
-    position:absolute;
+    position: absolute;
     left: 50%;
     transform: translateX(-50%);
     bottom: 40px;
     height: 50px;
+    cursor: pointer;
 }
 
-/*switch between input and not active input*/
-#submitbtn{
-    padding:5px 50px;
-    display:none;
-}
-#fakebtn{
-    padding:5px 40px;
+/* File input display settings */
+#submitbtn {
+    padding: 5px 50px;
+    display: none;
 }
 
-/* Footer */
-#sign{
-    color:#1E2832;
-    position:fixed;
-    right:10px;
-    bottom:10px;
-    text-shadow:0px 0px 0px #1E2832;
-    transition:all.3s;
+#fakebtn {
+    padding: 5px 40px;
 }
-#sign:hover{
-    color:#1E2832;
-    text-shadow:0px 0px 5px #1E2832;
+
+/* Success button for Download Processed CSV */
+.download-btn {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    margin-left: 15px; /* Add margin between buttons */
+}
+
+.download-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Buttons alignment */
+.text-center .btn-primary, .text-center .download-btn {
+    margin: 10px; /* Space between buttons */
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Add gap between buttons */
+    margin-top: 20px;
+}
+
+/* Image upload success and stop icons */
+.imgupload.ok, .csvupload.ok {
+    display: none;
+    color: green;
+}
+
+.imgupload.stop, .csvupload.stop {
+    display: none;
+    color: red;
+}
+
+/* Footer link */
+#sign {
+    color: #1E2832;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    text-shadow: 0px 0px 0px #1E2832;
+    transition: all 0.3s;
+}
+
+#sign:hover {
+    color: #1E2832;
+    text-shadow: 0px 0px 5px #1E2832;
+}
+
+/* CSV/Excel upload container styling */
+.csv-upload-container {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.csv-upload-container .btn-container {
+    margin-top: 50px;
+}
+
+.csv-upload-container h1.csvupload {
+    font-size: 80px;
+    color: #28a745; /* Green color for Excel icon */
+    margin-bottom: 20px;
+}
+
+.csv-upload-container #namefilecsv {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 18px;
+}
+
+.csv-upload-container .btn-primary {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.csv-upload-container .btn-primary:hover {
+    background-color: #c9302c;
+    border-color: #ac2925;
 }

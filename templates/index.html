@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="white">WhatsApp Chat Log Analyzer</h1>
-                <p class="white">Only .txt extensions allowed !</p>
+                <p class="white">Only .txt extensions allowed!</p>
                 <p class="white">The file must be a WhatsApp chat export with .txt extension.</p>
             </div>
         </div>
@@ -33,17 +33,17 @@
             <div class="col-md-12">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
-                        <ul>
-                            {% for category, message in messages %}
-                                <li class="alert alert-{{ category }}">{{ message }}</li>
-                            {% endfor %}
-                        </ul>
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="alert alert-{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
                     {% endif %}
                 {% endwith %}
             </div>
         </div>
 
-        <!-- Form to upload file -->
+        <!-- Form to upload WhatsApp chat file -->
         <form name="upload" method="POST" action="/" enctype="multipart/form-data" accept-charset="utf-8">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 center">
@@ -62,18 +62,55 @@
 
             <!-- Submit button area -->
             <div class="row">
-                <div class="col-md-12">
-                    <input type="submit" value="Submit!" class="btn btn-primary" id="submitbtn" style="display:none;">
-                    <button type="button" class="btn btn-default" disabled="disabled" id="fakebtn">Submit! <i class="fa fa-minus-circle"></i></button>
+                <div class="col-md-12 text-center">
+                    <input type="submit" value="Submit !" class="btn btn-primary" id="submitbtn" style="display:inline;">
                 </div>
             </div>
         </form>
 
-        <!-- Section to download processed file if available -->
+        <!-- Download Processed CSV button, initially hidden -->
         <div class="row">
-            <div class="col-md-12">
-                <a href="{{ url_for('download') }}" class="btn btn-success" {% if not session.get('output_file') %}style="display:none;"{% endif %}>
+            <div class="col-md-12 text-center">
+                <a href="{{ url_for('download') }}" class="btn btn-success download-btn"
+                   {% if session.get('output_file') and not session.get('file_downloaded') %}style="display:inline;"{% else %}style="display:none;"{% endif %}>
                     Download Processed CSV
+                </a>
+            </div>
+        </div>
+
+        <!-- New form to upload CSV/Excel file -->
+        <form name="upload_csv" method="POST" action="{{ url_for('upload_csv') }}" enctype="multipart/form-data">
+            <div class="csv-upload-container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 center">
+                        <div class="btn-container">
+                            <h1 class="csvupload"><i class="fa fa-file-excel-o"></i></h1>
+                            <h1 class="csvupload ok" style="display:none;"><i class="fa fa-check"></i></h1>
+                            <h1 class="csvupload stop" style="display:none;"><i class="fa fa-times"></i></h1>
+                            <p id="namefilecsv">Only .csv/.xlsx files allowed!</p>
+
+                            <!-- Hidden File Upload Trigger -->
+                            <button type="button" id="btncsvup" class="btn btn-primary btn-lg">Browse for your file!</button>
+                            <input type="file" name="file_csv" id="file_csv" accept=".csv, .xlsx" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit button for CSV/Excel upload -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="submit" value="Submit CSV/Excel" class="btn btn-primary" id="submitcsvbtn" style="display:none;">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Button for downloading psychological report generated from CSV/Excel -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="{{ url_for('download_psychological_report') }}" class="btn btn-success"
+                   {% if session.get('report_file') %}style="display:inline;"{% else %}style="display:none;"{% endif %}>
+                    Download Psychological Report from CSV/Excel
                 </a>
             </div>
         </div>
